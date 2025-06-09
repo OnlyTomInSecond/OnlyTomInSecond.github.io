@@ -158,36 +158,36 @@ WantedBy=multi-user.target
 
 一般 https 的流量是加密的，网关无法分析其中的ua，但是 http 流量并没有加密，因此需要转发 80 端口的 http 流量到特定软件处理，去除或者统一修改ua，这里使用的方案是 `privoxy` 代理。
 
-    - 1. 首先， 安装 `privoxy`: `sudo apt install privoxy`
+- 1. 首先， 安装 `privoxy`: `sudo apt install privoxy`
+
+- 2. 修改 `/etc/privoxy/config` 文件，将默认配置的 `action` 和 `filter` 注释掉。 找到 `actionsfile` 字段和 `filterfile` 字段，注释原有的值，添加 `actionsfile format_ua.action` 。
+
+添加 `accept-intercepted-requests 1` 以允许处理来自iptables转发的流量。
+
+新建文件 `/etc/privoxy/format_ua.action`， 加入以下内容：
+
+```
+{ \
++hide-user-agent{你自己的ua} \
+}
+/
+```
+
+保存后重启 `privoxy.service` 。
+
+- 3. 配置 iptables 转发。给出命令：
+
+```
+sudo iptables -t nat -N http_ua_drop
+sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j http_ua_drop
+sudo iptables -t nat -A http_ua_drop -m mark --mark 1/1 -j RETURN
+sudo iptables -t nat -A http_ua_drop -d 0.0.0.0/8 -j RETURN
+sudo iptables -t nat -A http_ua_drop -d 127.0.0.0/8 -j RETURN
+sudo iptables -t nat -A http_ua_drop -d 192.168.0.0/16 -j RETURN
+sudo iptables -t nat -A http_ua_drop -p tcp -j REDIRECT --to-port 8118
+```
     
-    - 2. 修改 `/etc/privoxy/config` 文件，将默认配置的 `action` 和 `filter` 注释掉。 找到 `actionsfile` 字段和 `filterfile` 字段，注释原有的值，添加 `actionsfile format_ua.action` 。
-
-        添加 `accept-intercepted-requests 1` 以允许处理来自iptables转发的流量。
-
-        新建文件 `/etc/privoxy/format_ua.action`， 加入以下内容：
-
-        ```
-        { \
-        +hide-user-agent{你自己的ua} \
-        }
-        /
-        ```
-
-        保存后重启 `privoxy.service` 。
-
-    - 3. 配置 iptables 转发。给出命令：
-
-        ```
-        sudo iptables -t nat -N http_ua_drop
-        sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j http_ua_drop
-        sudo iptables -t nat -A http_ua_drop -m mark --mark 1/1 -j RETURN
-        sudo iptables -t nat -A http_ua_drop -d 0.0.0.0/8 -j RETURN
-        sudo iptables -t nat -A http_ua_drop -d 127.0.0.0/8 -j RETURN
-        sudo iptables -t nat -A http_ua_drop -d 192.168.0.0/16 -j RETURN
-        sudo iptables -t nat -A http_ua_drop -p tcp -j REDIRECT --to-port 8118
-        ```
-    
-        保存 iptables 配置，并重启 `netfilter-persistent.service`。用 [这个链接](ua.233996.xyz) 测试修改后的 ua 是否生效， 如果生效， 看到的两个 ua 有一个是在 `privoxy` 中设置的 ua 。
+保存 iptables 配置，并重启 `netfilter-persistent.service`。用 [这个链接](ua.233996.xyz) 测试修改后的 ua 是否生效， 如果生效， 看到的两个 ua 有一个是在 `privoxy` 中设置的 ua 。
 
 - 3. DPI 深度包检测。
 
