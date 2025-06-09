@@ -1,7 +1,8 @@
 ---
 title: KVM + qemu 显卡直通(passthrough)配置
+tags:
+  - Linux
 ---
-## KVM + qemu 显卡直通(passthrough)配置
 
 - 这个是啥？ 
 

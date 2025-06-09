@@ -1,8 +1,8 @@
 ---
 title: wireguard组网——内网穿透及安全设置
+tags:
+  - Network
 ---
-
-## wireguard组网教程 ##
 
 有内网穿透的需求，一开始想着用frp， 但又不想直接使用域名，加上日后有组网的需求， 于是便打算用wireguard来实现自己的组网需求。
 

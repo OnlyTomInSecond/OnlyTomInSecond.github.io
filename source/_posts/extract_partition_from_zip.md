@@ -1,6 +1,8 @@
 ---
 title: 在手机上实现从刷机包中提取内容
---- 
+tags:
+  - Android
+---
 
 ## 本教程基于 [LineageOS](https://wiki.lineageos.org/extracting_blobs_from_zips) 的这篇教程 ##
 

@@ -1,6 +1,9 @@
 ---
 title: 树莓派开 wifi 热点
+tags:
+  - Linux
 ---
+
 由于所在大学校园网改造，宽带被废，校园网帐号限设备，想着能不能用树莓派做个软路由，去除设备限制。于是有了这个教程，记录一下只自己的折腾过程。注意，该教程只适用于 debian 系列的 linux 发行版
 
 总的来说，这次的方案是 `hostapd + iptables +dnsmasq` ，`hostapd` 用来开启 `ap` ， `iptables` 用来转发流量，`dnsmasq` 用来作 `dhcp` 服务器。

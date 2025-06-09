@@ -1,7 +1,12 @@
 ---
 title: linux kvm里win10和宿主机文件传输方法
+tags:
+  - Linux
 ---
+
 ## linux kvm里win10和宿主机文件传输方法
+
+实际上就是在`linux`上挂载`Windows`的`SMB`
 
 - 把windows系统里面的共享文件设置为共享
 - 在linux系统里面 

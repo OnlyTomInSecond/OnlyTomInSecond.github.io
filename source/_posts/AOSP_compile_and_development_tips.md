@@ -1,5 +1,7 @@
 ---
 title: AOSP 编译&开发技巧
+tags:
+  - Android
 ---
 
 最基础的 `brunch xxx` 就不多说了，主要记录一下如何模块编译和清理编译产物重新编译。

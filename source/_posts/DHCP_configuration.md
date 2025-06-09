@@ -1,3 +1,9 @@
+---
+title: DHCP原理及配置
+tags:
+  - Network
+---
+
 ## 工作原理 ##
 
 7个阶段

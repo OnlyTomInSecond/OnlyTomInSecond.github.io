@@ -1,3 +1,9 @@
+---
+title: OpenGL环境搭建与第一个窗口
+tags:
+  - OpenGL
+---
+
 ## GLFW
 所用库为`GLFW`：GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。
 

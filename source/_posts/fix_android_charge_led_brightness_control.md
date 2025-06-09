@@ -1,5 +1,7 @@
 ---
 title: android 充电电池灯亮度调节修复
+tags:
+  - Android
 ---
 
 手持 `Redmi K30S Ultra`，该设备带一个呼吸灯，充电时或者通知来时可亮起。刷了 `Lineageos` 后，呼吸灯亮度不能在设置里调节，于是着手想着修复一下这个问题。
